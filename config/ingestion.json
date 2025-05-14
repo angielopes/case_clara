@@ -1,0 +1,22 @@
+[
+    {
+        "table": "home_page_table",
+        "path": "../data/home_page_table.csv"
+    },
+    {
+        "table": "payment_confirmation_table",
+        "path": "../data/payment_confirmation_table.csv"
+    },
+    {
+        "table": "payment_page_table",
+        "path": "../data/payment_page_table.csv"
+    },
+    {
+        "table": "search_page_table",
+        "path": "../data/search_page_table.csv"
+    },
+    {
+        "table": "user_table",
+        "path": "../data/user_table.csv"
+    }
+]
