@@ -1,5 +1,9 @@
 [
     {
+        "table": "user_table",
+        "path": "../data/user_table.csv"
+    },
+    {
         "table": "home_page_table",
         "path": "../data/home_page_table.csv"
     },
@@ -14,9 +18,5 @@
     {
         "table": "search_page_table",
         "path": "../data/search_page_table.csv"
-    },
-    {
-        "table": "user_table",
-        "path": "../data/user_table.csv"
     }
 ]
