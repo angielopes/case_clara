@@ -20,10 +20,10 @@ WITH funnel_data AS (
 conversions_counts_by_device AS (
     SELECT
         device,
-        COUNT(home_visits) AS total_home,
-        COUNT(searches) AS total_searches,
-        COUNT(payments) AS total_payments,
-        COUNT(confirmations) AS total_confirmations
+        COUNT(DISTINCT home_visits) AS total_home,
+        COUNT(DISTINCT searches) AS total_searches,
+        COUNT(DISTINCT payments) AS total_payments,
+        COUNT(DISTINCT confirmations) AS total_confirmations
     FROM funnel_data
     GROUP BY device
 ),
