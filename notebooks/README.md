@@ -1,19 +1,43 @@
 # Data Ingestion Notebook - README
 
-This notebook is part of a case study and demonstrates the process of ingesting data into a MySQL database using Python. It walks through the following steps:
+This repository contains a series of notebooks for handling data operations in the "case_clara" project. The notebooks cover:
 
-* Loading ingestion configuration from a JSON file
-* Reading multiple CSV data files into pandas DataFrames
-* Connecting to a MySQL database using SQLAlchemy
-* Uploading data to the appropriate database tables
+* Data ingestion from CSV files into a MySQL database
+* Analysis of funnel metrics and conversion rates
+* Exporting data from MySQL back to CSV format
 
-It was developed and executed using **Anaconda**, in a virtual environment (`.conda`) with **Python 3.11.11**.
+The notebooks were developed and executed using **Anaconda**, in a virtual environment (`.conda`) with **Python 3.11.11**.
+
+---
+
+## Notebooks Overview
+
+### 1. `ingestion.ipynb`
+This notebook demonstrates the process of ingesting data into a MySQL database using Python. It includes:
+- Loading ingestion configuration from a JSON file
+- Reading multiple CSV data files into pandas DataFrames
+- Connecting to a MySQL database using SQLAlchemy
+- Uploading data to the appropriate database tables
+
+### 2. `analysis.ipynb`
+This notebook performs comprehensive analysis of funnel metrics data, including:
+- Conversion and drop-off rate calculations by device and gender
+- Time-based trend analysis (weekly and monthly)
+- Identification of top-performing segments
+- Summary statistics for key performance metrics
+
+### 3. `exportations.ipynb`
+This notebook handles data export operations:
+- Connecting to the MySQL database
+- Selecting specific tables for export
+- Converting database tables to pandas DataFrames
+- Exporting data to CSV files for further use
 
 ---
 
 ## Prerequisites
 
-To execute this notebook, the following Python libraries must be installed in your environment:
+To execute these notebooks, the following Python libraries must be installed in your environment:
 
 ```bash
 pip install pandas python-dotenv sqlalchemy pymysql cryptography
@@ -21,7 +45,7 @@ pip install pandas python-dotenv sqlalchemy pymysql cryptography
 
 ### Libraries Explanation
 
-* **pandas**: Used for reading and manipulating tabular data from CSV files.
+* **pandas**: Used for reading and manipulating tabular data from CSV files and database operations.
 * **os** and **dotenv**: `os` is a standard Python library, and `dotenv` is used to securely load environment variables from a `.env` file (e.g., database passwords).
 * **sqlalchemy**: A SQL toolkit for Python, used to create the database engine and handle connections.
 * **pymysql**: A lightweight MySQL client required by SQLAlchemy to interact with MySQL databases using the `mysql+pymysql` dialect.
@@ -53,10 +77,8 @@ create_engine("mysql+pymysql://root:{password}@localhost/case_clara")
 Make sure you meet the following requirements:
 
 * The **username** is set to `root` (default for MySQL installations).
-
 * The **host** is set to `localhost` (assuming the MySQL server is running locally).
-
-* The **database** name is `case_clara`. You must create this database manually in MySQL before running the notebook:
+* The **database** name is `case_clara`. You must create this database manually in MySQL before running the notebooks:
 
   ```sql
   CREATE DATABASE case_clara;
@@ -68,7 +90,8 @@ Make sure you meet the following requirements:
 
 ## Data Files and Configuration
 
-The notebook reads ingestion instructions from a JSON file located at:
+### For Ingestion:
+The `ingestion.ipynb` notebook reads instructions from a JSON file located at:
 
 ```
 ../config/ingestion.json
@@ -82,39 +105,36 @@ This file must follow the structure below:
     "table": "table_name",
     "path": "../data/table_file.csv"
   },
-  ...
 ]
 ```
 
-Each entry defines:
+### For Analysis:
+The `analysis.ipynb` notebook reads data from:
 
-* The name of the table in the database.
-* The path to the CSV file containing the data for that table.
+```
+../data/funnel_metrics.csv
+```
+
+### For Export:
+The `exportations.ipynb` notebook exports data to CSV files in:
+
+```
+../data/
+```
 
 ---
 
-## Uploading the Data
+## Workflow Summary
 
-Each CSV file defined in the configuration is read into a pandas DataFrame. These DataFrames are then uploaded to their respective tables in the MySQL database using `to_sql()`:
-
-```python
-df.to_sql("table_name", con=engine, if_exists="append", index=False)
-```
-
-The notebook uses `if_exists="append"` to ensure that new rows are added without deleting existing data.
-
-The process can be executed in batch for all configured files, or customized to upload specific tables as needed.
+1. **Data Ingestion**: Use `ingestion.ipynb` to load CSV data into the MySQL database
+2. **Data Analysis**: Use `analysis.ipynb` to examine conversion rates and funnel metrics
+3. **Data Export**: Use `exportations.ipynb` to save database tables back to CSV format
 
 ---
 
 ## Notes
 
 * It is assumed that the MySQL server is running and accessible locally.
-* The user must have appropriate privileges to insert data into the `case_clara` database.
+* The user must have appropriate privileges to insert and read data from the `case_clara` database.
 * If any special characters are used in the MySQL password, they will be correctly encoded by `quote_plus()` to avoid connection issues.
-
----
-
-## Summary
-
-This notebook is structured for clarity, maintainability, and secure handling of credentials. It is suitable for real-world data workflows and can be extended to integrate with ETL pipelines or scheduling systems. All decisions made in this notebook follow best practices for local development with MySQL and Python.
+* The notebooks follow a modular design, allowing them to be executed independently or as part of a complete data pipeline.
