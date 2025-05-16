@@ -1,0 +1,4 @@
+device,total_home,total_searches,total_payments,total_confirmations,home_rate,search_rate,payments_rate,confirmations_rate
+Overall,90400,45200,6030,452,100.0,50.0,13.3407,7.4959
+Desktop,60200,30100,3010,150,100.0,50.0,10.0,4.9834
+Mobile,30200,15100,3020,302,100.0,50.0,20.0,10.0
