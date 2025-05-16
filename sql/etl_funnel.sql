@@ -1,12 +1,9 @@
--- Funnel ETL Script for Case Study Selection Process
---
 -- This script aggregates and analyzes the user journey through the main funnel stages:
 -- Home Page Visit -> Search -> Payment -> Payment Confirmation.
 -- It produces both wide and long formats for reporting and visualization,
 -- and prepares data for device-based comparison.
 
 -- Step 1: Gather funnel data by joining all relevant tables.
-
 WITH funnel_data AS (
     SELECT u.date,
         u.device,
@@ -111,11 +108,10 @@ ORDER BY CASE
         'confirmation'
     );
 
--- OUTPUTS
 
 -- Step 8: Device comparison table for visualization.
--- This aggregates the funnel steps for Desktop and Mobile devices only,
--- ignoring the 'Overall' row, and pivots the data for easy comparison.
+-- This aggregates the funnel steps for Desktop and Mobile devices only.
+
 SELECT step,
     SUM(
         CASE
